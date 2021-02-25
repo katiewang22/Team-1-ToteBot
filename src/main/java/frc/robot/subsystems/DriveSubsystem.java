@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -68,6 +69,79 @@ public class DriveSubsystem {
         rightBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
         rightBackMotor.configVelocityMeasurementWindow(10);
         rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
+    }
+
+    public void setModePercentVoltage() {
+        leftFrontMotor.set(ControlMode.PercentOutput, 0);
+        leftBackMotor.set(ControlMode.PercentOutput, 0);
+        rightFrontMotor.set(ControlMode.PercentOutput, 0);
+        rightBackMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    public static void drive(double throttle, double rotate) {
+        leftFrontMotor.set(throttle + rotate);
+        leftBackMotor.set(throttle + rotate);
+        rightFrontMotor.set(throttle - rotate);
+        rightBackMotor.set(throttle - rotate);
+    }
+
+    public void stop() {
+        drive(0,0);
+    }
+
+    public double getLeftFrontEncoderPosition() {
+        return leftFrontMotor.getSelectedSensorPosition();
+    }
+
+    public double getLeftBackEncoderPosition() {
+        return leftBackMotor.getSelectedSensorPosition();
+    }
+
+    public double getRightFrontEncoderPosition() {
+        return rightFrontMotor.getSelectedSensorPosition();
+    }
+
+    public double getRightBackEncoderPosition() {
+        return rightBackMotor.getSelectedSensorPosition();
+    }
+
+    public double getLeftEncoderPosition() {
+        return ((getLeftFrontEncoderPosition() + getLeftBackEncoderPosition()) / 2);
+    }
+
+    public double getRightEncoderPosition() {
+        return ((getRightFrontEncoderPosition() + getRightBackEncoderPosition()) / 2);
+    }
+
+    public double distanceTravelledInTicks() {
+        return ((getLeftEncoderPosition() + getRightEncoderPosition()) / 2);
+    }
+
+    public double getLeftEncoderVelocityMetersPerSecond() {
+        double leftVelocityMPS = (leftFrontMotor.getSelectedSensorVelocity() * 10);
+        leftVelocityMPS = leftVelocityMPS * METERS_PER_TICKS;
+        return (leftVelocityMPS);
+    }
+
+    public double getRightEncoderVelocityMetersPerSecond() {
+        double rightVelocityMPS = (rightFrontMotor.getSelectedSensorVelocity() * 10);
+        rightVelocityMPS = rightVelocityMPS * METERS_PER_TICKS;
+        return (rightVelocityMPS);
+    }
+
+    public double leftDistanceTravelledInMeters() {
+        double left_dist = getLeftEncoderPosition() * METERS_PER_TICKS;
+        return (left_dist);
+    }
+
+    public double rightDistanceTravelledInMeters() {
+        double right_dist = getRightEncoderPosition() * METERS_PER_TICKS;
+        return (right_dist);
+    }
+
+    public double distanceTravelledInMeters() {
+        double distanceTravelled = ((leftDistanceTravelledInMeters() + rightDistanceTravelledInMeters()) / 2);
+        return (distanceTravelled);
     }
 
     public void resetEncoders() {
