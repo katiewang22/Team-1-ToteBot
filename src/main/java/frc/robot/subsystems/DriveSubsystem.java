@@ -1,5 +1,9 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -28,4 +32,48 @@ public class DriveSubsystem {
 
     public boolean state_flag_motion_profile = true;
     
+    public DriveSubsystem() {
+        leftFrontMotor.setInverted(false);
+        rightFrontMotor.setInverted(true);
+        leftBackMotor.setInverted(false);
+        rightBackMotor.setInverted(true);
+
+        leftFrontMotor.setNeutralMode(NeutralMode.Coast);
+        rightFrontMotor.setNeutralMode(NeutralMode.Coast);
+        leftBackMotor.setNeutralMode(NeutralMode.Coast);
+        rightBackMotor.setNeutralMode(NeutralMode.Coast);
+
+        resetEncoders();
+
+        leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
+        leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+        leftFrontMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+        leftFrontMotor.configVelocityMeasurementWindow(10);
+        leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
+
+        leftBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
+        leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+        leftBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+        leftBackMotor.configVelocityMeasurementWindow(10);
+        leftBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
+
+        rightFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
+        rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+        rightFrontMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+        rightFrontMotor.configVelocityMeasurementWindow(10);
+        rightFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
+
+        rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
+        rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+        rightBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+        rightBackMotor.configVelocityMeasurementWindow(10);
+        rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
+    }
+
+    public void resetEncoders() {
+        leftFrontMotor.setSelectedSensorPosition(0);
+        rightFrontMotor.setSelectedSensorPosition(0);
+        leftBackMotor.setSelectedSensorPosition(0);
+        rightBackMotor.setSelectedSensorPosition(0);
+    }
 }
