@@ -31,6 +31,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     private static final double TICKS_PER_METER = (MOTOR_ENCODER_CODES_PER_REV * GEAR_RATIO) / (WHEEL_CIRCUMFERENCE);
     private static final double METERS_PER_TICKS = 1/TICKS_PER_METER;
+    //TODO value of TIMEOUT_MS
+    private static final int TIMEOUT_MS = 0;
 
     public boolean state_flag_motion_profile = true;
     
@@ -39,6 +41,9 @@ public class DriveSubsystem extends SubsystemBase {
         rightFrontMotor.setInverted(true);
         leftBackMotor.setInverted(false);
         rightBackMotor.setInverted(true);
+
+        leftFrontMotor.set(ControlMode.Follower, leftBackMotor.getDeviceID());
+        rightFrontMotor.set(ControlMode.Follower, rightBackMotor.getDeviceID());
 
         leftFrontMotor.setNeutralMode(NeutralMode.Coast);
         rightFrontMotor.setNeutralMode(NeutralMode.Coast);
@@ -70,6 +75,41 @@ public class DriveSubsystem extends SubsystemBase {
         rightBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
         rightBackMotor.configVelocityMeasurementWindow(10);
         rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
+
+        leftFrontMotor.configNominalOutputForward(0, TIMEOUT_MS);
+        leftFrontMotor.configNominalOutputReverse(0, TIMEOUT_MS);
+        leftFrontMotor.configPeakOutputForward(1, TIMEOUT_MS);
+        leftFrontMotor.configPeakOutputReverse(-1, TIMEOUT_MS);
+
+        leftBackMotor.configNominalOutputForward(0, TIMEOUT_MS);
+        leftBackMotor.configNominalOutputReverse(0, TIMEOUT_MS);
+        leftBackMotor.configPeakOutputForward(1, TIMEOUT_MS);
+        leftBackMotor.configPeakOutputReverse(-1, TIMEOUT_MS);
+
+        rightFrontMotor.configNominalOutputForward(0, TIMEOUT_MS);
+        rightFrontMotor.configNominalOutputReverse(0, TIMEOUT_MS);
+        rightFrontMotor.configPeakOutputForward(1, TIMEOUT_MS);
+        rightFrontMotor.configPeakOutputReverse(-1, TIMEOUT_MS);
+
+        rightBackMotor.configNominalOutputForward(0, TIMEOUT_MS);
+        rightBackMotor.configNominalOutputReverse(0, TIMEOUT_MS);
+        rightBackMotor.configPeakOutputForward(1, TIMEOUT_MS);
+        rightBackMotor.configPeakOutputReverse(-1, TIMEOUT_MS);
+
+        leftFrontMotor.configNeutralDeadband(0.001, TIMEOUT_MS);
+        leftBackMotor.configNeutralDeadband(0.001, TIMEOUT_MS);
+        rightFrontMotor.configNeutralDeadband(0.001, TIMEOUT_MS);
+        rightBackMotor.configNeutralDeadband(0.001, TIMEOUT_MS);
+
+        leftFrontMotor.setSensorPhase(true);
+        leftBackMotor.setSensorPhase(true);
+        rightFrontMotor.setSensorPhase(false);
+        rightBackMotor.setSensorPhase(false);
+
+        leftFrontMotor.setInverted(false);
+        leftBackMotor.setInverted(false);
+        rightFrontMotor.setInverted(true);
+        rightBackMotor.setInverted(true);
     }
 
     public void setModePercentVoltage() {
