@@ -8,10 +8,11 @@ import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 
-public class DriveSubsystem {
+public class DriveSubsystem extends SubsystemBase {
     private static final WPI_TalonFX leftFrontMotor = RobotMap.leftFrontMotor;
     private static final WPI_TalonFX leftBackMotor = RobotMap.leftBackMotor;
     private static final WPI_TalonFX rightFrontMotor = RobotMap.rightFrontMotor;
