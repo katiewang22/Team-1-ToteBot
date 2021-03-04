@@ -23,24 +23,27 @@ public class JoystickDrive extends CommandBase{
         double throttle = driverController.getX(Hand.kLeft);
         double rotate = driverController.getX(Hand.kRight);
 
+        // Deadband for throttle and rotate
         if ((throttle > 0 && throttle < 0.25) || (throttle < 0 && throttle > -0.25)) {
             throttle = 0;
         }
-
         if ((rotate > 0 && rotate < 0.25) || (rotate < 0 && rotate > -0.25)) {
             rotate = 0;
         }
 
         rotate *= 2;
 
+        // Slow speed
         if (driverController.getTriggerAxis(Hand.kRight) > 0.25) {
             throttle = Math.signum(throttle) * 0.75;
         }
 
+        // Fast speed
         else if (driverController.getAButton()) {
             throttle *= 1.1;
         }
 
+        // Normal speed
         else {
             throttle *= 0.8;
         }
