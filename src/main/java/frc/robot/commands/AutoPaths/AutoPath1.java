@@ -15,14 +15,13 @@ import frc.robot.commands.AutoTurn;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPath1 extends SequentialCommandGroup {
   /** Creates a new AutoPath1. */
-  public AutoPath1(final DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem) {
+  public AutoPath1(final DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     super(
-      new AutoMove(driveSubsystem, 2.8), new StopNWait(driveSubsystem, 0.1),
-      new Outtake(intakeSubsystem).withTimeout(1.5), new StopNWait(driveSubsystem, 0.1),
-      new AutoMove(driveSubsystem, -0.5), new StopNWait(driveSubsystem, 0.1),
-      new AutoTurn(driveSubsystem, 160), new StopNWait(driveSubsystem, 0.1),
+      new AutoMove(driveSubsystem, 2.8), new AutoTurn(driveSubsystem, 0.1),
+      new AutoMove(driveSubsystem, -0.5), new AutoTurn(driveSubsystem, 0.1),
+      new AutoTurn(driveSubsystem, 160), new AutoTurn(driveSubsystem, 0.1),
       new AutoMove(driveSubsystem, 2));
   }
 }

@@ -185,6 +185,16 @@ public class DriveSubsystem extends SubsystemBase {
         return (distanceTravelled);
     }
 
+    public void ZeroYaw() {
+        RobotMap.drive_imu.setYaw(0);
+    }
+
+    public double getYaw() {
+        double[] ypr = new double[3];
+        RobotMap.drive_imu.getYawPitchRoll(ypr);
+        return ypr[0];
+    }
+
     public void resetEncoders() {
         leftFrontMotor.setSelectedSensorPosition(0);
         rightFrontMotor.setSelectedSensorPosition(0);

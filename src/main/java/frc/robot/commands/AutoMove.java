@@ -17,7 +17,7 @@ public class AutoMove extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     driveSubsystem = subsystem;
     addRequirements(driveSubsystem);
-    start_dist_meters = driveSubsystem.distanceTravelledinMeters();
+    start_dist_meters = driveSubsystem.distanceTravelledInMeters();
     target_distance = distance_in_meters;
   }
 
@@ -25,15 +25,16 @@ public class AutoMove extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     driveSubsystem = subsystem;
     addRequirements(driveSubsystem);
-    start_dist_meters = driveSubsystem.distanceTravelledinMeters();
+    start_dist_meters = driveSubsystem.distanceTravelledInMeters();
     target_distance = distance;
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     driveSubsystem.resetEncoders();
     driveSubsystem.ZeroYaw();
-    start_dist_meters = driveSubsystem.distanceTravelledinMeters();
+    start_dist_meters = driveSubsystem.distanceTravelledInMeters();
     driveSubsystem.state_flag_motion_profile = true;
   }
 
@@ -50,7 +51,7 @@ public class AutoMove extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double distance_driven = driveSubsystem.distanceTravelledinMeters() - start_dist_meters;
+    double distance_driven = driveSubsystem.distanceTravelledInMeters() - start_dist_meters;
     double positionError = Math.abs(target_distance = distance_driven);
     return(positionError < 0.01);
   }
