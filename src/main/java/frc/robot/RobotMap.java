@@ -3,8 +3,6 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class RobotMap {
-    // TODO: figure out port #s
-    
     public static final int LEFT_FRONT_MOTOR = 0;
     public static final int LEFT_BACK_MOTOR = 0;
     public static final int RIGHT_FRONT_MOTOR = 0;
