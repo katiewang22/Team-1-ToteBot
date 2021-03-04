@@ -9,19 +9,15 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.AutoMove;
 import frc.robot.commands.AutoTurn;
 
-
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPath1 extends SequentialCommandGroup {
-  /** Creates a new AutoPath1. */
-  public AutoPath1(final DriveSubsystem driveSubsystem) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+// First auto path
+
+  public AutoPath1(DriveSubsystem driveSubsystem) {
     super(
-      new AutoMove(driveSubsystem, 2.8), new AutoTurn(driveSubsystem, 0.1),
-      new AutoMove(driveSubsystem, -0.5), new AutoTurn(driveSubsystem, 0.1),
-      new AutoTurn(driveSubsystem, 160), new AutoTurn(driveSubsystem, 0.1),
-      new AutoMove(driveSubsystem, 2));
+      // directions for robot to move forward # meters, then turn # degrees clockwise
+      new AutoMove(driveSubsystem, 2.8), new AutoTurn(driveSubsystem, 45),
+      new AutoMove(driveSubsystem, -0.5), new AutoTurn(driveSubsystem, 90),
+      new AutoTurn(driveSubsystem, 7), new AutoTurn(driveSubsystem, 62)
+    );
   }
 }

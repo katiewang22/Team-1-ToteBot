@@ -8,36 +8,37 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoTurn extends CommandBase {
-  private final DriveSubsystem drivesubsystem;
+  private final DriveSubsystem driveSubsystem;
   private double initial_heading;
   private double target_heading;
-  /** Creates a new AutoTurn. */
 
   public AutoTurn(final DriveSubsystem subsystem, double heading, double speed) {
-    drivesubsystem = subsystem;
+    driveSubsystem = subsystem;
     addRequirements(subsystem);
-    drivesubsystem.ZeroYaw();
-    initial_heading = drivesubsystem.getYaw();
+    driveSubsystem.ZeroYaw();
+    initial_heading =driveSubsystem.getYaw();
     target_heading = heading;
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   public AutoTurn(final DriveSubsystem subsystem, double heading) {
-    drivesubsystem = subsystem;
+   driveSubsystem = subsystem;
     addRequirements(subsystem);
-    drivesubsystem.ZeroYaw();
-    initial_heading = drivesubsystem.getYaw();
+    driveSubsystem.ZeroYaw();
+    initial_heading =driveSubsystem.getYaw();
     target_heading = heading;
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    driveSubsystem.ZeroYaw();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    DriveSubsystem.drive(0.0, target_heading);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -46,6 +47,9 @@ public class AutoTurn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    double current_heading = driveSubsystem.getYaw() - initial_heading;
+    double headingError = Math.abs(target_heading - current_heading);
+
+    return (headingError < 0.2);
   }
 }
