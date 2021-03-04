@@ -20,6 +20,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     private static XboxController driverController = RobotContainer.driverController;
 
+    // giving values to variables//
     public static final int MOTOR_ENCODER_CODES_PER_REV = 2048;
     public static final double DIAMETER_INCHES = 5.0;
     private static final double IN_TO_M = .0254;
@@ -35,6 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
     private static final int TIMEOUT_MS = 0;
 
     public boolean state_flag_motion_profile = true;
+    
     
     public DriveSubsystem() {
         leftFrontMotor.setInverted(false);
@@ -76,6 +78,7 @@ public class DriveSubsystem extends SubsystemBase {
         rightBackMotor.configVelocityMeasurementWindow(10);
         rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1, 5, 10);
 
+        //moves the wheels forward and backward//
         leftFrontMotor.configNominalOutputForward(0, TIMEOUT_MS);
         leftFrontMotor.configNominalOutputReverse(0, TIMEOUT_MS);
         leftFrontMotor.configPeakOutputForward(1, TIMEOUT_MS);
@@ -130,6 +133,7 @@ public class DriveSubsystem extends SubsystemBase {
         drive(0,0);
     }
 
+    //gets position from motors//
     public double getLeftFrontEncoderPosition() {
         return leftFrontMotor.getSelectedSensorPosition();
     }
@@ -158,6 +162,7 @@ public class DriveSubsystem extends SubsystemBase {
         return ((getLeftEncoderPosition() + getRightEncoderPosition()) / 2);
     }
 
+    //calculates the velocity//
     public double getLeftEncoderVelocityMetersPerSecond() {
         double leftVelocityMPS = (leftFrontMotor.getSelectedSensorVelocity() * 10);
         leftVelocityMPS = leftVelocityMPS * METERS_PER_TICKS;
@@ -170,6 +175,7 @@ public class DriveSubsystem extends SubsystemBase {
         return (rightVelocityMPS);
     }
 
+    //calculates the distance travelled//
     public double leftDistanceTravelledInMeters() {
         double left_dist = getLeftEncoderPosition() * METERS_PER_TICKS;
         return (left_dist);
