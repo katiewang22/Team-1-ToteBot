@@ -13,6 +13,7 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 
 public class DriveSubsystem extends SubsystemBase {
+    // motor ports 
     private static final WPI_TalonFX leftFrontMotor = RobotMap.leftFrontMotor;
     private static final WPI_TalonFX leftBackMotor = RobotMap.leftBackMotor;
     private static final WPI_TalonFX rightFrontMotor = RobotMap.rightFrontMotor;
@@ -32,12 +33,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     private static final double TICKS_PER_METER = (MOTOR_ENCODER_CODES_PER_REV * GEAR_RATIO) / (WHEEL_CIRCUMFERENCE);
     private static final double METERS_PER_TICKS = 1/TICKS_PER_METER;
+
     //TODO value of TIMEOUT_MS
     private static final int TIMEOUT_MS = 0;
 
     public boolean state_flag_motion_profile = true;
-    
-    
+     
     public DriveSubsystem() {
         leftFrontMotor.setInverted(false);
         rightFrontMotor.setInverted(true);
@@ -115,6 +116,7 @@ public class DriveSubsystem extends SubsystemBase {
         rightBackMotor.setInverted(true);
     }
 
+    // percent voltage to motors
     public void setModePercentVoltage() {
         leftFrontMotor.set(ControlMode.PercentOutput, 0);
         leftBackMotor.set(ControlMode.PercentOutput, 0);
@@ -122,6 +124,7 @@ public class DriveSubsystem extends SubsystemBase {
         rightBackMotor.set(ControlMode.PercentOutput, 0);
     }
 
+    // motor speed and direction
     public static void drive(double throttle, double rotate) {
         leftFrontMotor.set(throttle + rotate);
         leftBackMotor.set(throttle + rotate);
@@ -129,6 +132,7 @@ public class DriveSubsystem extends SubsystemBase {
         rightBackMotor.set(throttle - rotate);
     }
 
+    // stop the motors
     public void stop() {
         drive(0,0);
     }
@@ -158,6 +162,7 @@ public class DriveSubsystem extends SubsystemBase {
         return ((getRightFrontEncoderPosition() + getRightBackEncoderPosition()) / 2);
     }
 
+    // gets distance travelled 
     public double distanceTravelledInTicks() {
         return ((getLeftEncoderPosition() + getRightEncoderPosition()) / 2);
     }
@@ -166,41 +171,44 @@ public class DriveSubsystem extends SubsystemBase {
     public double getLeftEncoderVelocityMetersPerSecond() {
         double leftVelocityMPS = (leftFrontMotor.getSelectedSensorVelocity() * 10);
         leftVelocityMPS = leftVelocityMPS * METERS_PER_TICKS;
-        return (leftVelocityMPS);
+        return leftVelocityMPS;
     }
 
     public double getRightEncoderVelocityMetersPerSecond() {
         double rightVelocityMPS = (rightFrontMotor.getSelectedSensorVelocity() * 10);
         rightVelocityMPS = rightVelocityMPS * METERS_PER_TICKS;
-        return (rightVelocityMPS);
+        return rightVelocityMPS;
     }
 
-    //calculates the distance travelled//
+    // calculates the distance travelled per side
     public double leftDistanceTravelledInMeters() {
         double left_dist = getLeftEncoderPosition() * METERS_PER_TICKS;
-        return (left_dist);
+        return left_dist;
     }
 
     public double rightDistanceTravelledInMeters() {
         double right_dist = getRightEncoderPosition() * METERS_PER_TICKS;
-        return (right_dist);
+        return right_dist;
     }
 
     public double distanceTravelledInMeters() {
         double distanceTravelled = ((leftDistanceTravelledInMeters() + rightDistanceTravelledInMeters()) / 2);
-        return (distanceTravelled);
+        return distanceTravelled;
     }
 
+    // zero the yaw
     public void ZeroYaw() {
         RobotMap.drive_imu.setYaw(0);
     }
 
+    // get the yaw
     public double getYaw() {
         double[] ypr = new double[3];
         RobotMap.drive_imu.getYawPitchRoll(ypr);
         return ypr[0];
     }
 
+    // resets the encoders
     public void resetEncoders() {
         leftFrontMotor.setSelectedSensorPosition(0);
         rightFrontMotor.setSelectedSensorPosition(0);

@@ -17,12 +17,12 @@ import frc.robot.subsystems.DriveSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public static RobotContainer m_robotContainer;
-  private DriveSubsystem driveSubsystem = m_robotContainer.driveSubsystem;
+  private static final String kDefaultAuto = "Default"; // Default auto path
+  private static final String kCustomAuto = "My Auto"; // Our auto path
+  private String m_autoSelected; // Selected auto path
+  private final SendableChooser<String> m_chooser = new SendableChooser<>(); // Choosing auto path
+  public static RobotContainer m_robotContainer; // Robot Container instance
+  private DriveSubsystem driveSubsystem = m_robotContainer.driveSubsystem; // Drive Subsystem instance
 
   /**
    * This function is run when the robot is first started up and should be used for any
