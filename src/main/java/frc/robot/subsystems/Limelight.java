@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
@@ -23,6 +24,23 @@ public class Limelight extends SubsystemBase {
   
   public Limelight() {
 
+  }
+
+  public static void init_Limelight() {
+    // Limelight vision and data
+    // Runs at execution of the robot
+
+    limelightTable = NetworkTable.getDefault().getTable("limelight");
+    NetworkTableEntry tx = limelightTable.getEntry("tx");
+    NetworkTableEntry ty = limelightTable.getEntry("ty");
+
+    limelight_x = (double) tx.getDouble(0.0);
+    limelight_y = (double) ty.getDouble(0.0);
+
+    // 1: force off 2: force blink 3: force on
+    limelightTable.getEntry("ledMode").setNumber(FORCE_ON);
+    // 0: Vision processor 1: Driver camera
+    limelightTable.getEntry("camMode").setNumber(VISION_PROCESSOR);
   }
 
   @Override
