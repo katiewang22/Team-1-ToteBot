@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
@@ -20,8 +21,11 @@ public class JoystickDrive extends CommandBase{
 
     @Override
     public void execute() {
-        double throttle = driverController.getX(Hand.kLeft);
+        double throttle = -driverController.getY(Hand.kLeft);
         double rotate = driverController.getX(Hand.kRight);
+        
+        System.out.println(throttle);
+        System.out.println(rotate);
 
         // Deadband for throttle and rotate
         if ((throttle > 0 && throttle < 0.25) || (throttle < 0 && throttle > -0.25)) {
@@ -48,6 +52,8 @@ public class JoystickDrive extends CommandBase{
             throttle *= 0.8;
         }
 
+        SmartDashboard.putNumber("Throttle", throttle);
+        SmartDashboard.putNumber("Rotate", rotate);
         driveSubsystem.drive(throttle, rotate);
     }
 
