@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -48,6 +49,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Limelight X", Limelight.limelight_x);
+    SmartDashboard.putNumber("Limelight Y", Limelight.limelight_y);
   }
 
   /**
