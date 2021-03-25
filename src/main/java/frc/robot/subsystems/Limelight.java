@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
@@ -28,7 +29,7 @@ public class Limelight extends SubsystemBase {
   // Runs at execution of the robot
   public static void init_Limelight() {
     // Limelight vision and data
-    limelightTable = NetworkTable.getDefault().getTable("limelight");
+    limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = limelightTable.getEntry("tx");
     NetworkTableEntry ty = limelightTable.getEntry("ty");
 
