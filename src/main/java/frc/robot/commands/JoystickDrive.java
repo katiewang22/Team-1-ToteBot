@@ -11,6 +11,7 @@ import frc.robot.subsystems.Limelight;
 public class JoystickDrive extends CommandBase{
     private final DriveSubsystem driveSubsystem;
     private final static XboxController driverController = RobotContainer.driverController;
+    private static final double LIMELIGHT_SCALAR = -0.6;
 
     public JoystickDrive(DriveSubsystem drivetrain) {
         driveSubsystem = drivetrain;
@@ -54,7 +55,7 @@ public class JoystickDrive extends CommandBase{
         }
 
         if (driverController.getBButton()) {
-            rotate = Limelight.getLimelightX() * -0.6;
+            rotate = Limelight.getLimelightX() * LIMELIGHT_SCALAR;
         }
 
         SmartDashboard.putNumber("Throttle", throttle);
