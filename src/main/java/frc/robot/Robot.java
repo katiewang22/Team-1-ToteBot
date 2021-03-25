@@ -49,7 +49,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Limelight X", Limelight.getLimelightX());
+    SmartDashboard.putNumber("Limelight X", Limelight.limelight_x);
+    SmartDashboard.putNumber("Limelight Y", Limelight.limelight_y);
   }
 
   /**
