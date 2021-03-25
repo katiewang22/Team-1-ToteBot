@@ -9,6 +9,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.Robot;
+
 public class Limelight extends SubsystemBase {
   public static NetworkTable limelightTable;
 
@@ -48,6 +50,14 @@ public class Limelight extends SubsystemBase {
     limelight_y = (Double) limelightTable.getEntry("ty").getDouble(0.0);
   }
 
+  public static double getLimelightX() {
+    return limelight_x = (Double) limelightTable.getEntry("tx").getDouble(0.0);
+  }
+
+  public static double getLimelightY() {
+    return limelight_y = (Double) limelightTable.getEntry("ty").getDouble(0.0);
+  }
+
   // Call to turn limelight ON
   public static void turn_LED_ON() {
     limelightTable.getEntry("ledMode").setNumber(FORCE_ON);
@@ -67,14 +77,14 @@ public class Limelight extends SubsystemBase {
   public static void setDriverCamera() {
     limelightTable.getEntry("camMode").setNumber(DRIVER_CAMERA);
     turn_LED_OFF();
-    Robot.flashlight.flashlightOn();
+    //Robot.flashlight.flashlightOn();
   }
 
   // Sets the limelight to vision processor mode
   public static void setVisionProcessor() {
     limelightTable.getEntry("camMode").setNumber(VISION_PROCESSOR);
     turn_LED_ON();
-    Robot.flashlight.flashlightOff();
+    //Robot.flashlight.flashlightOff();
   }
 
   static NetworkTable getTable() {
