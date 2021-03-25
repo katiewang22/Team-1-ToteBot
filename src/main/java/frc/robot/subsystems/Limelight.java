@@ -9,7 +9,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
-  /*
   public static NetworkTable limelightTable;
 
   public static double limelight_x;
@@ -26,10 +25,9 @@ public class Limelight extends SubsystemBase {
 
   }
 
+  // Runs at execution of the robot
   public static void init_Limelight() {
     // Limelight vision and data
-    // Runs at execution of the robot
-
     limelightTable = NetworkTable.getDefault().getTable("limelight");
     NetworkTableEntry tx = limelightTable.getEntry("tx");
     NetworkTableEntry ty = limelightTable.getEntry("ty");
@@ -43,9 +41,47 @@ public class Limelight extends SubsystemBase {
     limelightTable.getEntry("camMode").setNumber(VISION_PROCESSOR);
   }
 
+  // Called in periodic thread to constantly refresh data
+  public static void getLimelightData() {
+    limelight_x = (Double) limelightTable.getEntry("tx").getDouble(0.0);
+    limelight_y = (Double) limelightTable.getEntry("ty").getDouble(0.0);
+  }
+
+  // Call to turn limelight ON
+  public static void turn_LED_ON() {
+    limelightTable.getEntry("ledMode").setNumber(FORCE_ON);
+  }
+
+  // Call to turn limelight OFF 
+  public static void turn_LED_OFF() {
+    limelightTable.getEntry("ledMode").setNumber(FORCE_OFF);
+  }
+
+  // Call to get limelight to BLINK
+  public static void turn_LED_FLASH_BLINK() {
+    limelightTable.getEntry("ledMode").setNumber(FORCE_BLINK);
+  }
+
+  // Sets the limelight to regular driver camera mode
+  public static void setDriverCamera() {
+    limelightTable.getEntry("camMode").setNumber(DRIVER_CAMERA);
+    turn_LED_OFF();
+    Robot.flashlight.flashlightOn();
+  }
+
+  // Sets the limelight to vision processor mode
+  public static void setVisionProcessor() {
+    limelightTable.getEntry("camMode").setNumber(VISION_PROCESSOR);
+    turn_LED_ON();
+    Robot.flashlight.flashlightOff();
+  }
+
+  static NetworkTable getTable() {
+    return NetworkTableInstance.getDefault().getTable("limelight");
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  */
 }
