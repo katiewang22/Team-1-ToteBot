@@ -51,11 +51,13 @@ public class Limelight extends SubsystemBase {
   }
 
   public static double getLimelightX() {
-    return limelight_x = (Double) limelightTable.getEntry("tx").getDouble(0.0);
+    limelight_x = (Double) limelightTable.getEntry("tx").getDouble(0.0);
+    return limelight_x;
   }
 
   public static double getLimelightY() {
-    return limelight_y = (Double) limelightTable.getEntry("ty").getDouble(0.0);
+    limelight_y = (Double) limelightTable.getEntry("ty").getDouble(0.0);
+    return limelight_y;
   }
 
   // Call to turn limelight ON

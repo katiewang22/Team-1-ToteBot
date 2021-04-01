@@ -24,6 +24,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>(); // Choosing auto path
   public static RobotContainer m_robotContainer; // Robot Container instance
   private DriveSubsystem driveSubsystem = m_robotContainer.driveSubsystem; // Drive Subsystem instance
+  private Limelight limeLight = m_robotContainer.limelightSubsystem;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.driveSubsystem.setModePercentVoltage();
     m_robotContainer.driveSubsystem.resetEncoders();
+    m_robotContainer.limelightSubsystem.init_Limelight();
   }
 
   /**
@@ -49,8 +51,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Limelight X", Limelight.limelight_x);
-    SmartDashboard.putNumber("Limelight Y", Limelight.limelight_y);
+    SmartDashboard.putNumber("Limelight X", m_robotContainer.limelightSubsystem.getLimelightX());
+    SmartDashboard.putNumber("Limelight Y", m_robotContainer.limelightSubsystem.getLimelightY());
   }
 
   /**
